@@ -22,23 +22,49 @@
             <button id="settings-button">Settings</button>
         </div>
     </header>
-    <main>
-        <section id="about" class="content-section active">
-            <h2>About Me</h2>
-            <p>Welcome to my portfolio website. Here you can find information about my skills and projects.</p>
-            <p>This is the About Me section.</p>
-        </section>
-        <section id="projects" class="content-section">
-            <h2>Projects</h2>
-            <p>This is the Projects section.</p>
-            <div id="project-container"></div>
-        </section>
-        <section id="contact" class="content-section">
-            <h2>Contact</h2>
-            <!-- Add your contact information here -->
-            <p>This is the Contact section.</p>
-        </section>
-    </main>
+    <div class="main-wrapper">
+        <main>
+            <section id="about" class="content-section active">
+                <div class="section-wrapper">
+                    <aside class="sidebar">
+                        <!-- Empty sidebar for future content -->
+                    </aside>
+                    <div class="section-content">
+                        <h2>About Me</h2>
+                        <p>Welcome to my portfolio website. Here you can find information about my skills and projects.</p>
+                        <p>This is the About Me section.</p>
+                    </div>
+                </div>
+            </section>
+            <section id="projects" class="content-section">
+                <div class="projects-wrapper">
+                    <aside class="sidebar">
+                        <ul id="project-list">
+                            <li><a href="#" data-file="src/projects/project-one.html">Project One</a></li>
+                            <li><a href="#" data-file="src/projects/project-two.html">Project Two</a></li>
+                            <li><a href="#" data-file="src/projects/project-three.html">Project Three</a></li>
+                        </ul>
+                    </aside>
+                    <div class="project-content" id="project-content">
+                        <h2>Projects</h2>
+                        <p>Select a project to view its details.</p>
+                    </div>
+                </div>
+            </section>
+            <section id="contact" class="content-section">
+                <div class="section-wrapper">
+                    <aside class="sidebar">
+                        <!-- Empty sidebar for future content -->
+                    </aside>
+                    <div class="section-content">
+                        <h2>Contact</h2>
+                        <!-- Add your contact information here -->
+                        <p>This is the Contact section.</p>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
     <footer>
         <p>&copy; 2025 My Portfolio</p>
     </footer>

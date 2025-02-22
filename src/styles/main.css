@@ -1,8 +1,16 @@
+:root {
+    --header-bg-color: #333;
+    --sidebar-bg-color: #555; /* Lighter shade of the header color */
+}
+
 body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
     background-color: #f4f4f4;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
 }
 
 body.light {
@@ -19,7 +27,7 @@ header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-color: #333;
+    background-color: var(--header-bg-color);
     color: #fff;
     padding: 1rem;
 }
@@ -74,26 +82,81 @@ nav a:hover::after {
     background-color: #777;
 }
 
-main {
+.main-wrapper {
+    display: flex;
+    flex: 1;
+    overflow: hidden;
+}
+
+.section-wrapper, .projects-wrapper {
+    display: flex;
+    flex: 1;
+    height: calc(100vh - 2rem); /* Adjust height to fill the viewport minus padding */
+}
+
+.sidebar {
+    width: 15%; /* Adjust the width to make it smaller */
+    background-color: var(--sidebar-bg-color);
     padding: 1rem;
+    box-shadow: 2px 0 5px rgba(0,0,0,0.1);
+    overflow-y: auto;
+    margin: 0;
+    border: none; /* Ensure no border */
+}
+
+.sidebar ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.sidebar li {
+    margin-bottom: 1rem;
+}
+
+.sidebar a {
+    color: #fff;
+    text-decoration: none;
+    display: block;
+    padding: 0.5rem;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.sidebar a:hover {
+    background-color: #666; /* Slightly darker shade for hover effect */
+}
+
+.section-content, .project-content {
+    flex: 1;
+    padding: 1rem;
+    overflow-y: auto;
+}
+
+main {
+    flex: 1;
+    padding: 1rem;
+    overflow-y: auto;
 }
 
 footer {
-    background-color: #333;
+    background-color: var(--header-bg-color);
     color: #fff;
     text-align: center;
     padding: 1rem;
-    position: fixed;
-    width: 100%;
-    bottom: 0;
+    position: relative;
 }
 
 .content-section {
     display: none;
+    margin: 0; /* Ensure no margin */
+    padding: 0; /* Ensure no padding */
 }
 
 .content-section.active {
     display: block;
+    margin: 0;
+    padding: 0;
 }
 
 /* Modal styles */

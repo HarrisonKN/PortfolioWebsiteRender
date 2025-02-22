@@ -1,41 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const projects = [
-        {
-            title: 'Project One',
-            description: 'Description of project one.',
-            link: 'https://link-to-project-one.com',
-            image: 'images/project-one.png'
-        },
-        {
-            title: 'Project Two',
-            description: 'Description of project two.',
-            link: 'https://link-to-project-two.com',
-            image: 'images/project-two.png'
-        },
-        {
-            title: 'Project Three',
-            description: 'Description of project three.',
-            link: 'https://link-to-project-three.com',
-            image: 'images/project-three.png'
-        }
-    ];
-
-    const projectContainer = document.getElementById('project-container');
-
-    projects.forEach(project => {
-        const projectElement = document.createElement('div');
-        projectElement.classList.add('project');
-
-        projectElement.innerHTML = `
-            <img src="${project.image}" alt="${project.title}">
-            <h3>${project.title}</h3>
-            <p>${project.description}</p>
-            <a href="${project.link}" target="_blank">View Project</a>
-        `;
-
-        projectContainer.appendChild(projectElement);
-    });
-
+    // Handle section navigation
     const navLinks = document.querySelectorAll('.nav-link');
     const sections = document.querySelectorAll('.content-section');
 
@@ -78,12 +42,55 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     themeSelect.addEventListener('change', (event) => {
-        document.body.className = event.target.value;
+        const theme = event.target.value;
+        document.body.className = theme;
+        if (theme === 'light') {
+            document.documentElement.style.setProperty('--header-bg-color', '#333');
+            document.documentElement.style.setProperty('--sidebar-bg-color', '#555');
+        } else {
+            document.documentElement.style.setProperty('--header-bg-color', '#111');
+            document.documentElement.style.setProperty('--sidebar-bg-color', '#333');
+        }
     });
 
     colorSelect.addEventListener('input', (event) => {
         const color = event.target.value;
-        document.querySelector('header').style.backgroundColor = color;
-        document.querySelector('footer').style.backgroundColor = color;
+        document.documentElement.style.setProperty('--header-bg-color', color);
+        document.documentElement.style.setProperty('--sidebar-bg-color', lightenColor(color, 20));
+    });
+
+    function lightenColor(color, percent) {
+        const num = parseInt(color.replace("#", ""), 16),
+            amt = Math.round(2.55 * percent),
+            R = (num >> 16) + amt,
+            G = (num >> 8 & 0x00FF) + amt,
+            B = (num & 0x0000FF) + amt;
+        return "#" + (0x1000000 + (R < 255 ? R < 1 ? 0 : R : 255) * 0x10000 + (G < 255 ? G < 1 ? 0 : G : 255) * 0x100 + (B < 255 ? B < 1 ? 0 : B : 255)).toString(16).slice(1).toUpperCase();
+    }
+
+    // Load project content
+    const projectLinks = document.querySelectorAll('#project-list a');
+    const projectContent = document.getElementById('project-content');
+
+    projectLinks.forEach(link => {
+        link.addEventListener('click', function(event) {
+            event.preventDefault();
+            const file = this.getAttribute('data-file');
+            console.log(`Fetching file: ${file}`); // Debugging line
+            fetch(file)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! status: ${response.status}`);
+                    }
+                    return response.text();
+                })
+                .then(data => {
+                    projectContent.innerHTML = data;
+                })
+                .catch(error => {
+                    console.error('Error loading project content:', error); // Debugging line
+                    projectContent.innerHTML = '<p>Error loading project content.</p>';
+                });
+        });
     });
 });
