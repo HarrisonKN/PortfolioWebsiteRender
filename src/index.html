@@ -13,58 +13,62 @@
         </div>
         <nav>
             <ul>
-                <li><a href="#about" class="nav-link">About Me</a></li>
-                <li><a href="#projects" class="nav-link">Projects</a></li>
-                <li><a href="#contact" class="nav-link">Contact</a></li>
+                <li><a href="index.html" class="nav-link active">Home</a></li>
+                <li><a href="about.html" class="nav-link">About Me</a></li>
+                <li><a href="projects.html" class="nav-link">Projects</a></li>
+                <li><a href="contact.html" class="nav-link">Contact</a></li>
             </ul>
         </nav>
         <div class="settings">
             <button id="settings-button">Settings</button>
         </div>
     </header>
-    <div class="main-wrapper">
-        <main>
-            <section id="about" class="content-section active">
-                <div class="section-wrapper">
-                    <aside class="sidebar">
-                        <!-- Empty sidebar for future content -->
-                    </aside>
-                    <div class="section-content">
-                        <h2>About Me</h2>
-                        <p>Welcome to my portfolio website. Here you can find information about my skills and projects.</p>
-                        <p>This is the About Me section.</p>
+    <main>
+        <div class="page-transition"></div>
+        <section id="home" class="content-section active">
+            <div class="section-content">
+                <h2>Welcome to My Portfolio</h2>
+                <p>Explore my work, projects, and learn more about me!</p>
+                <div class="section-preview">
+                    <div class="section-card" data-page="about.html">
+                        <h3>About Me</h3>
+                        <p>Get to know more about my journey and what I do!</p>
+                        <div class="preview-content">
+                            <p>I'm a passionate developer with expertise in web development and design.</p>
+                            <ul class="skill-list">
+                                <li>Frontend Development</li>
+                                <li>UI/UX Design</li>
+                                <li>Backend Development</li>
+                            </ul>
+                        </div>
+                        <button class="section-link" data-href="about.html">Learn more</button>
+                    </div>
+                    <div class="section-card" data-page="projects.html">
+                        <h3>Projects</h3>
+                        <p>See the projects I've worked on and what I've built.</p>
+                        <div class="preview-content">
+                            <div class="project-preview">
+                                <img src="images/project-preview.jpg" alt="Project Preview">
+                                <p>Featured: Portfolio Website</p>
+                            </div>
+                        </div>
+                        <button class="section-link" data-href="projects.html">View Projects</button>
+                    </div>
+                    <div class="section-card" data-page="contact.html">
+                        <h3>Contact</h3>
+                        <p>Have any questions or want to get in touch?</p>
+                        <div class="preview-content">
+                            <div class="contact-preview">
+                                <p>Let's connect and discuss your next project!</p>
+                                <p>Available for freelance work and collaborations.</p>
+                            </div>
+                        </div>
+                        <button class="section-link" data-href="contact.html">Contact me</button>
                     </div>
                 </div>
-            </section>
-            <section id="projects" class="content-section">
-                <div class="projects-wrapper">
-                    <aside class="sidebar">
-                        <ul id="project-list">
-                            <li><a href="#" data-file="src/projects/project-one.html">Project One</a></li>
-                            <li><a href="#" data-file="src/projects/project-two.html">Project Two</a></li>
-                            <li><a href="#" data-file="src/projects/project-three.html">Project Three</a></li>
-                        </ul>
-                    </aside>
-                    <div class="project-content" id="project-content">
-                        <h2>Projects</h2>
-                        <p>Select a project to view its details.</p>
-                    </div>
-                </div>
-            </section>
-            <section id="contact" class="content-section">
-                <div class="section-wrapper">
-                    <aside class="sidebar">
-                        <!-- Empty sidebar for future content -->
-                    </aside>
-                    <div class="section-content">
-                        <h2>Contact</h2>
-                        <!-- Add your contact information here -->
-                        <p>This is the Contact section.</p>
-                    </div>
-                </div>
-            </section>
-        </main>
-    </div>
+            </div>
+        </section>
+    </main>
     <footer>
         <p>&copy; 2025 My Portfolio</p>
     </footer>

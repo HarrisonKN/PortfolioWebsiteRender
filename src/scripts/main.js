@@ -1,32 +1,25 @@
+/* filepath: /C:/Users/hazab/Desktop/VSCode Projects/PortfolioWebsiteRender/src/scripts/main.js */
 document.addEventListener('DOMContentLoaded', () => {
-    // Handle section navigation
-    const navLinks = document.querySelectorAll('.nav-link');
-    const sections = document.querySelectorAll('.content-section');
-
-    navLinks.forEach(link => {
-        link.addEventListener('click', function(event) {
-            event.preventDefault();
-            const targetId = this.getAttribute('href').substring(1);
-            sections.forEach(section => {
-                if (section.id === targetId) {
-                    section.classList.add('active');
-                } else {
-                    section.classList.remove('active');
-                }
-            });
-        });
-    });
-
-    // Show the first section by default
-    document.querySelector('.content-section').classList.add('active');
-
-    // Modal functionality
+    // DOM Elements
     const settingsButton = document.getElementById('settings-button');
     const modal = document.getElementById('settings-modal');
     const closeButton = document.querySelector('.close-button');
     const themeSelect = document.getElementById('theme-select');
     const colorSelect = document.getElementById('color-select');
+    const navLinks = document.querySelectorAll('.nav-link');
+    const pageTransition = document.querySelector('.page-transition');
 
+    // Theme Management
+    const savedTheme = localStorage.getItem('theme') || 'light';
+    const savedColor = localStorage.getItem('headerColor') || '#333';
+
+    // Apply saved settings
+    document.body.className = savedTheme;
+    document.documentElement.style.setProperty('--header-bg-color', savedColor);
+    themeSelect.value = savedTheme;
+    colorSelect.value = savedColor;
+
+    // Modal Controls
     settingsButton.addEventListener('click', () => {
         modal.style.display = 'block';
     });
@@ -35,62 +28,107 @@ document.addEventListener('DOMContentLoaded', () => {
         modal.style.display = 'none';
     });
 
-    window.addEventListener('click', (event) => {
-        if (event.target === modal) {
+    window.addEventListener('click', (e) => {
+        if (e.target === modal) {
             modal.style.display = 'none';
         }
     });
 
-    themeSelect.addEventListener('change', (event) => {
-        const theme = event.target.value;
+    // Theme Changes
+    themeSelect.addEventListener('change', (e) => {
+        const theme = e.target.value;
         document.body.className = theme;
-        if (theme === 'light') {
-            document.documentElement.style.setProperty('--header-bg-color', '#333');
-            document.documentElement.style.setProperty('--sidebar-bg-color', '#555');
-        } else {
-            document.documentElement.style.setProperty('--header-bg-color', '#111');
-            document.documentElement.style.setProperty('--sidebar-bg-color', '#333');
+        localStorage.setItem('theme', theme);
+    });
+
+    // Color Changes
+    colorSelect.addEventListener('input', (e) => {
+        const color = e.target.value;
+        document.documentElement.style.setProperty('--header-bg-color', color);
+        localStorage.setItem('headerColor', color);
+    });
+
+    // Page Transitions
+    navLinks.forEach(link => {
+        link.addEventListener('click', function(e) {
+            if (this.getAttribute('href').startsWith('#')) return;
+            
+            e.preventDefault();
+            const target = this.getAttribute('href');
+
+            pageTransition.classList.add('active');
+
+            setTimeout(() => {
+                window.location.href = target;
+            }, 300);
+        });
+    });
+
+    // Remove transition on page load
+    window.addEventListener('pageshow', (e) => {
+        if (e.persisted) {
+            pageTransition.classList.remove('active');
         }
     });
 
-    colorSelect.addEventListener('input', (event) => {
-        const color = event.target.value;
-        document.documentElement.style.setProperty('--header-bg-color', color);
-        document.documentElement.style.setProperty('--sidebar-bg-color', lightenColor(color, 20));
-    });
+    // Form Handling
+    const contactForm = document.getElementById('contact-form');
+    if (contactForm) {
+        contactForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const submitBtn = contactForm.querySelector('.submit-btn');
+            const formData = new FormData(contactForm);
 
-    function lightenColor(color, percent) {
-        const num = parseInt(color.replace("#", ""), 16),
-            amt = Math.round(2.55 * percent),
-            R = (num >> 16) + amt,
-            G = (num >> 8 & 0x00FF) + amt,
-            B = (num & 0x0000FF) + amt;
-        return "#" + (0x1000000 + (R < 255 ? R < 1 ? 0 : R : 255) * 0x10000 + (G < 255 ? G < 1 ? 0 : G : 255) * 0x100 + (B < 255 ? B < 1 ? 0 : B : 255)).toString(16).slice(1).toUpperCase();
+            try {
+                submitBtn.disabled = true;
+                submitBtn.textContent = 'Sending...';
+
+                // Replace with your actual form submission endpoint
+                await new Promise(resolve => setTimeout(resolve, 1000));
+                
+                alert('Message sent successfully!');
+                contactForm.reset();
+            } catch (error) {
+                console.error('Error sending message:', error);
+                alert('Failed to send message. Please try again.');
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.textContent = 'Send Message';
+            }
+        });
     }
 
-    // Load project content
-    const projectLinks = document.querySelectorAll('#project-list a');
-    const projectContent = document.getElementById('project-content');
-
-    projectLinks.forEach(link => {
-        link.addEventListener('click', function(event) {
-            event.preventDefault();
-            const file = this.getAttribute('data-file');
-            console.log(`Fetching file: ${file}`); // Debugging line
-            fetch(file)
-                .then(response => {
-                    if (!response.ok) {
-                        throw new Error(`HTTP error! status: ${response.status}`);
-                    }
-                    return response.text();
-                })
-                .then(data => {
-                    projectContent.innerHTML = data;
-                })
-                .catch(error => {
-                    console.error('Error loading project content:', error); // Debugging line
-                    projectContent.innerHTML = '<p>Error loading project content.</p>';
-                });
+    // Projects Filter (if on projects page)
+    const projectCards = document.querySelectorAll('.project-card');
+    if (projectCards.length > 0) {
+        projectCards.forEach(card => {
+            card.addEventListener('click', function() {
+                const projectLink = this.querySelector('.project-link');
+                if (projectLink) {
+                    projectLink.click();
+                }
+            });
         });
+    }
+
+    document.querySelectorAll('.nav-link, .section-link').forEach(link => {
+        link.addEventListener('click', function(e) {
+            if (this.getAttribute('href')?.startsWith('#')) return;
+            
+            e.preventDefault();
+            const target = this.getAttribute('href') || this.dataset.href;
+            if (!target) return;
+    
+            pageTransition.classList.add('active');
+    
+            setTimeout(() => {
+                window.location.href = target;
+            }, 300); // Match this with the CSS transition duration
+        });
+    });
+    
+    // Add this to handle initial page load transition
+    window.addEventListener('load', () => {
+        document.body.classList.add('loaded');
     });
 });
