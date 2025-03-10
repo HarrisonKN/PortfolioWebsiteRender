@@ -340,3 +340,122 @@ body.dark #settings-button:hover {
     background-color: #fff;
     color: #333;
 }
+
+/* Add these new CSS rules */
+
+/* Mobile Menu Styles */
+.hamburger {
+    display: none;
+    flex-direction: column;
+    cursor: pointer;
+    padding: 5px;
+    z-index: 101;
+}
+
+.hamburger span {
+    display: block;
+    width: 25px;
+    height: 3px;
+    background-color: #fff;
+    margin: 2px 0;
+    transition: all 0.3s ease;
+}
+
+/* Update the existing responsive design section */
+@media (max-width: 768px) {
+    .hamburger {
+        display: flex;
+    }
+
+    nav {
+        position: fixed;
+        top: 0;
+        right: -100%;
+        width: 70%;
+        height: 100vh;
+        background-color: var(--header-bg-color);
+        transition: right 0.3s ease;
+        z-index: 100;
+    }
+
+    nav.active {
+        right: 0;
+    }
+
+    nav ul {
+        flex-direction: column;
+        padding: 80px 20px 20px;
+        gap: 2rem;
+    }
+
+    .nav-link {
+        font-size: 1.2rem;
+    }
+
+    /* Hamburger animation when active */
+    .hamburger.active span:nth-child(1) {
+        transform: rotate(45deg) translate(5px, 5px);
+    }
+
+    .hamburger.active span:nth-child(2) {
+        opacity: 0;
+    }
+
+    .hamburger.active span:nth-child(3) {
+        transform: rotate(-45deg) translate(5px, -5px);
+    }
+
+    /* Adjust header for mobile */
+    header {
+        padding: 0.8rem;
+    }
+
+    .logo img {
+        height: 40px;
+    }
+
+    #settings-button {
+        padding: 0.4rem 1rem;
+        font-size: 0.8rem;
+    }
+
+    /* Adjust content for mobile */
+    main {
+        padding: 1rem;
+    }
+
+    .section-content {
+        padding: 1rem;
+    }
+
+    .section-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .contact-grid {
+        grid-template-columns: 1fr;
+    }
+
+    /* Modal adjustments for mobile */
+    .modal-content {
+        width: 95%;
+        margin: 10% auto;
+        padding: 1.5rem;
+    }
+}
+
+/* Add overlay for mobile menu */
+.menu-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 99;
+}
+
+.menu-overlay.active {
+    display: block;
+}

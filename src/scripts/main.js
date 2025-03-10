@@ -8,6 +8,31 @@ document.addEventListener('DOMContentLoaded', () => {
     const colorSelect = document.getElementById('color-select');
     const navLinks = document.querySelectorAll('.nav-link');
     const pageTransition = document.querySelector('.page-transition');
+    const hamburger = document.querySelector('.hamburger');
+    const nav = document.querySelector('nav');
+    const menuOverlay = document.querySelector('.menu-overlay');
+
+    hamburger.addEventListener('click', () => {
+        hamburger.classList.toggle('active');
+        nav.classList.toggle('active');
+        menuOverlay.classList.toggle('active');
+    });
+
+    // Close menu when clicking overlay
+    menuOverlay.addEventListener('click', () => {
+        hamburger.classList.remove('active');
+        nav.classList.remove('active');
+        menuOverlay.classList.remove('active');
+    });
+
+    // Close menu when clicking a link
+    document.querySelectorAll('.nav-link').forEach(link => {
+        link.addEventListener('click', () => {
+            hamburger.classList.remove('active');
+            nav.classList.remove('active');
+            menuOverlay.classList.remove('active');
+        });
+    });
 
     // Theme Management
     const savedTheme = localStorage.getItem('theme') || 'light';
