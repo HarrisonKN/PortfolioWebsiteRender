@@ -4,6 +4,7 @@
     --card-bg-color: #fff;
     --text-color: #000;
     --input-bg-color: #fff;
+    --gradient-color: rgba(128, 0, 128, 0.6); /* Add this line */
 }
 
 /* Base Styles */
@@ -11,13 +12,15 @@ body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #f4f4f4;
+    background: linear-gradient(to bottom, var(--gradient-color), rgba(255, 255, 255, 0.8)), url('images/background.jpg') center/cover no-repeat;
+    background-blend-mode: overlay;
     color: var(--text-color);
     min-height: 100vh;
     display: flex;
     flex-direction: column;
 }
 
+/* Dark Mode */
 body.dark {
     background-color: #333;
     color: #fff;
@@ -36,6 +39,7 @@ header {
     position: sticky;
     top: 0;
     z-index: 100;
+    opacity: 90%;
 }
 
 .logo img {
@@ -98,6 +102,66 @@ main {
 }
 
 /* Section Cards */
+/* Update section content spacing */
+.section-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
+}
+
+/* Add spacing between welcome card and section previews */
+.section-card:first-child {
+    margin-bottom: 3rem;
+}
+
+/* Update section preview grid layout and spacing */
+.section-preview {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    padding: 1rem 0;
+}
+
+/* Individual preview cards spacing */
+.section-preview .section-card {
+    background: var(--card-bg-color);
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    margin: 1rem 0;
+}
+
+/* Preview content spacing */
+.preview-content {
+    margin: 1.5rem 0;
+}
+
+/* Skill list spacing */
+.skill-list {
+    margin-top: 1rem;
+    padding-left: 1.5rem;
+}
+
+.skill-list li {
+    margin-bottom: 0.5rem;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .section-content {
+        padding: 1rem;
+    }
+    
+    .section-preview {
+        gap: 1.5rem;
+    }
+    
+    .section-preview .section-card {
+        margin: 0.5rem 0;
+    }
+}
+
 .section-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -304,6 +368,7 @@ footer {
         grid-template-columns: 1fr;
     }
 }
+
 /* Settings Button Styles */
 .settings {
     margin-left: 2rem;
@@ -340,8 +405,6 @@ body.dark #settings-button:hover {
     background-color: #fff;
     color: #333;
 }
-
-/* Add these new CSS rules */
 
 /* Mobile Menu Styles */
 .hamburger {
@@ -392,7 +455,6 @@ body.dark #settings-button:hover {
         font-size: 1.2rem;
     }
 
-    /* Hamburger animation when active */
     .hamburger.active span:nth-child(1) {
         transform: rotate(45deg) translate(5px, 5px);
     }
@@ -405,7 +467,6 @@ body.dark #settings-button:hover {
         transform: rotate(-45deg) translate(5px, -5px);
     }
 
-    /* Adjust header for mobile */
     header {
         padding: 0.8rem;
     }
@@ -419,12 +480,7 @@ body.dark #settings-button:hover {
         font-size: 0.8rem;
     }
 
-    /* Adjust content for mobile */
     main {
-        padding: 1rem;
-    }
-
-    .section-content {
         padding: 1rem;
     }
 
@@ -436,7 +492,6 @@ body.dark #settings-button:hover {
         grid-template-columns: 1fr;
     }
 
-    /* Modal adjustments for mobile */
     .modal-content {
         width: 95%;
         margin: 10% auto;
@@ -444,7 +499,7 @@ body.dark #settings-button:hover {
     }
 }
 
-/* Add overlay for mobile menu */
+/* Mobile menu overlay */
 .menu-overlay {
     display: none;
     position: fixed;

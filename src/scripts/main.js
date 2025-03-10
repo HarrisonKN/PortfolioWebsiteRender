@@ -12,6 +12,36 @@ document.addEventListener('DOMContentLoaded', () => {
     const nav = document.querySelector('nav');
     const menuOverlay = document.querySelector('.menu-overlay');
 
+    colorSelect.addEventListener('input', (e) => {
+        const color = e.target.value;
+        const rgbaColor = convertHexToRGBA(color, 0.6);
+        
+        document.documentElement.style.setProperty('--header-bg-color', color);
+        document.documentElement.style.setProperty('--gradient-color', rgbaColor);
+        localStorage.setItem('headerColor', color);
+        localStorage.setItem('gradientColor', rgbaColor);
+    });
+
+    // Initial load
+    const savedColor = localStorage.getItem('headerColor') || '#333';
+    const initialGradient = convertHexToRGBA(savedColor, 0.6);
+    
+    document.documentElement.style.setProperty('--header-bg-color', savedColor);
+    document.documentElement.style.setProperty('--gradient-color', initialGradient);
+    
+    if (colorSelect) {
+        colorSelect.value = savedColor;
+    }
+
+    // Helper function to convert hex to rgba
+    function convertHexToRGBA(hex, opacity) {
+        let r = parseInt(hex.slice(1, 3), 16),
+            g = parseInt(hex.slice(3, 5), 16),
+            b = parseInt(hex.slice(5, 7), 16);
+
+        return `rgba(${r}, ${g}, ${b}, ${opacity})`;
+    }
+
     hamburger.addEventListener('click', () => {
         hamburger.classList.toggle('active');
         nav.classList.toggle('active');
@@ -36,7 +66,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Theme Management
     const savedTheme = localStorage.getItem('theme') || 'light';
-    const savedColor = localStorage.getItem('headerColor') || '#333';
 
     // Apply saved settings
     document.body.className = savedTheme;

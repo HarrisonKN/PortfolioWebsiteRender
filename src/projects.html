@@ -30,21 +30,76 @@
     </header>
     <div class="menu-overlay"></div>
     <main>
-        <section id="projects" class="content-section">
+        <div class="page-transition"></div>
+        <section id="projects" class="content-section active">
             <div class="section-content">
-                <h2>Projects</h2>
-                <p>Click on a project to view more details:</p>
-                <ul id="project-list">
-                    <li><a href="project-one.html">Project One</a></li>
-                    <li><a href="project-two.html">Project Two</a></li>
-                    <li><a href="project-three.html">Project Three</a></li>
-                </ul>
+                <h2>My Projects</h2>
+                <div class="projects-grid">
+                    <div class="section-card">
+                        <div class="project-preview">
+                            <h3>Portfolio Website</h3>
+                            <p>A responsive portfolio website built with HTML, CSS, and JavaScript</p>
+                            <div class="project-tech">
+                                <span>HTML</span>
+                                <span>CSS</span>
+                                <span>JavaScript</span>
+                            </div>
+                            <button class="section-link">View Details</button>
+                        </div>
+                    </div>
+                    <div class="section-card">
+                        <div class="project-preview">
+                            <h3>Mobile App</h3>
+                            <p>A responsive mobile app built with Python and Kotlin to make a quick translate app
+                                that provides the user with common phrases in different languages that can be quickly
+                                translated into select languages</p>
+                            </p>
+                            <div class="project-tech">
+                                <span>Python</span>
+                                <span>Kotlin</span>
+                            </div>
+                            <button class="section-link">View Details</button>
+                        </div>
+                    </div>
+                    <div class="section-card">
+                        <div class="project-preview">
+                            <h3>Golf Par Adjuster Website</h3>
+                            <p>Another website built with HTML, CSS, and JavaScript and hosted on Render, provides a service 
+                                where a user can choose a golf course and the website will provide the user with the adjusted par
+                                score based on the par adjustment they selected</p>
+                            </p>
+                            <div class="project-tech">
+                                <span>HTML</span>
+                                <span>CSS</span>
+                                <span>JavaScript</span>
+                            </div>
+                            <button class="section-link">View Details</button>
+                        </div>
+                    </div>
+
+                    <!-- Add more project cards as needed -->
+                </div>
             </div>
         </section>
     </main>
     <footer>
         <p>&copy; 2025 My Portfolio</p>
     </footer>
+
+    <!-- Settings Modal -->
+    <div id="settings-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-button">&times;</span>
+            <h2>Settings</h2>
+            <label for="theme-select">Choose a theme:</label>
+            <select id="theme-select">
+                <option value="light">Light</option>
+                <option value="dark">Dark</option>
+            </select>
+            <label for="color-select">Choose a color:</label>
+            <input type="color" id="color-select" name="color-select" value="#f4f4f4">
+        </div>
+    </div>
 
     <script src="scripts/main.js"></script>
 </body>
