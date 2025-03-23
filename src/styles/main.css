@@ -514,3 +514,27 @@ body.dark #settings-button:hover {
 .menu-overlay.active {
     display: block;
 }
+
+
+.sidebar {
+    width: 200px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    background-color: #f4f4f4;
+    padding-top: 20px;
+}
+.sidebar a {
+    display: block;
+    color: black;
+    padding: 16px;
+    text-decoration: none;
+}
+.sidebar a:hover {
+    background-color: #ddd;
+}
+.content {
+    margin-left: 220px;
+    padding: 20px;
+}
